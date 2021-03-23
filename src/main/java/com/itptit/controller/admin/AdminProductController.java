@@ -34,7 +34,7 @@ import com.itptit.respositories.ProductRepo;
 import com.itptit.respositories.SizeRepo;
 import com.itptit.services.ProductsService;
 
-@Controller
+@RestController
 public class AdminProductController extends BaseController{
 	
 	@Autowired
@@ -52,26 +52,15 @@ public class AdminProductController extends BaseController{
 	@Autowired
 	private ColorRepo colorRepo;
 	
-	@RequestMapping(value = "/admin/dashboard-products", method = RequestMethod.GET)
-	public ResponseEntity<List<Product>> product()throws Exception{
+	@RequestMapping(value = "/admin/product", method = RequestMethod.GET)
+	public ResponseEntity<List<Product>> getAllProduct()throws Exception{
 		List<Product> products = productRepo.findAll();
 		if(products.isEmpty())
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
 	
-	//////// ADD
-	@RequestMapping(value = "/admin/dashboard-products-add", method = RequestMethod.GET)
-	public String addProduct(final ModelMap model, final HttpServletRequest request, final HttpServletResponse response)
-		throws Exception{
-		model.addAttribute("categories", categoryRepo.findAll());
-		model.addAttribute("size",sizeRepo.findAll());
-		model.addAttribute("color",colorRepo.findAll());
-		model.addAttribute("title","Thêm sản phẩm mới");
-		return "back-end/dashboard-products-add";
-	}
-	
-	@RequestMapping(value = "/admin/dashboard-products-add", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/product-add", method = RequestMethod.POST)
 	public ResponseEntity<Product> addProduct(@RequestParam("product_images") MultipartFile[] productImages, @RequestBody Product product)
 		throws Exception{
 		productsService.save(productImages,product);
@@ -89,16 +78,10 @@ public class AdminProductController extends BaseController{
 	}
 	
 	//////// EDIT
-	@RequestMapping(value = "/admin/dashboard-products-edit/{id}", method = RequestMethod.GET)
-	public String editAccount( @PathVariable ("id") Integer id,
-			final ModelMap model, final HttpServletRequest request, final HttpServletResponse response)
+	@RequestMapping(value = "/admin/dashboard-products-edit/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Product> editAccount(@PathVariable("id") Integer id, @RequestParam("product_images") MultipartFile[] productImages, @RequestBody Product product)
 		throws Exception{
-		Product product = productRepo.getOne(id);
-		model.addAttribute("categories", categoryRepo.findAll());
-		model.addAttribute("size",sizeRepo.findAll());
-		model.addAttribute("color",colorRepo.findAll());
-		model.addAttribute("product", product);
-		model.addAttribute("title","Sửa thông tin sản phẩm");
-		return "back-end/dashboard-products-add";
+		productsService.save(productImages,product);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }
