@@ -7,11 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="com.itptit.donghuuhieu" />
+        <module name="1st-restful-api-website" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="1st-restful-api-website" options="-parameters" />
       <module name="com.itptit.donghuuhieu" options="-parameters" />
     </option>
   </component>

@@ -9,7 +9,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Service;
 
 import com.itptit.entities.ProductSize;
-import com.itptit.model.SizeSearch;
+import com.itptit.model.search.SizeSearch;
 
 @Service
 public class SizeService {

@@ -30,7 +30,7 @@ public class User extends com.itptit.entities.BaseEntity implements UserDetails 
 	@Column(name = "address", length = 45, nullable = false)
 	private String address;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "tbl_users_roles",
 			  joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<com.itptit.entities.Role> roles;

@@ -19,7 +19,7 @@ public class SaleOrderProducts extends com.itptit.entities.BaseEntity {
 	@Column(name = "color")
 	private String color;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "saleorder_id")
 	private com.itptit.entities.SaleOrder saleOrder;
 

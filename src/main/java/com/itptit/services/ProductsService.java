@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.itptit.entities.Product;
 import com.itptit.entities.ProductImages;
 import com.itptit.entities.User;
-import com.itptit.model.ProductSearch;
+import com.itptit.model.search.ProductSearch;
 import com.itptit.respositories.ProductRepo;
 
 @Service

@@ -15,7 +15,7 @@ public class ProductImages extends BaseEntity{
 	private String path;
 	
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "product_img_id")
 	private Product product_img;
 

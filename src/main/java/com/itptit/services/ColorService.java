@@ -8,7 +8,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Service;
 
 import com.itptit.entities.ProductColor;
-import com.itptit.model.ColorSearch;
+import com.itptit.model.search.ColorSearch;
 
 @Service
 public class ColorService {

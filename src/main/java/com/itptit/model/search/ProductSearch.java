@@ -1,4 +1,4 @@
-package com.itptit.model;
+package com.itptit.model.search;
 
 import javax.servlet.http.HttpServletRequest;
 

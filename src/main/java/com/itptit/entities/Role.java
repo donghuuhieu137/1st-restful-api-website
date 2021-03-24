@@ -14,7 +14,7 @@ public class Role extends com.itptit.entities.BaseEntity {
 	@Column(name = "description", length = 45, nullable = false)
 	private String description;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "roles")
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "roles")
 	private List<User> users = new ArrayList<User>();
 	
 	public String getName() {

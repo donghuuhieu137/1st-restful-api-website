@@ -1,4 +1,4 @@
-package com.itptit.model;
+package com.itptit.model.respone;
 
 public class AjaxResponse {
 	private int status;

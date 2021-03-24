@@ -2,19 +2,19 @@ package com.itptit.services;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import com.itptit.entities.Product;
+import com.itptit.model.search.ProductSearch;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import com.itptit.entities.Category;
-import com.itptit.entities.User;
-import com.itptit.model.CategorySearch;
+import com.itptit.model.search.CategorySearch;
 import com.itptit.respositories.CategoryRepo;
 
 @Service
@@ -23,29 +23,58 @@ public class CategoryService {
 	@PersistenceContext protected EntityManager entityManager;
 	@Autowired
 	private CategoryRepo categoryRepo;
-	
+
+	@Autowired
+	private ProductsService productsService;
+
 	public void save(Category categories) throws IllegalAccessException, IOException{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = (User) auth.getPrincipal();
-		int userId = user.getId();
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//		User user = (User) auth.getPrincipal();
+//		Integer userId = user.getId();
 		if(categories.getId() == null)
 		{
 			LocalDateTime createdDate = LocalDateTime.now();
 			categories.setCreatedDate(createdDate);
-			categories.setCreatedBy(userId);
+//			categories.setCreatedBy(userId);
 		}
 		else {
 			LocalDateTime createdDate = categoryRepo.getOne(categories.getId()).getCreatedDate();
 			categories.setCreatedDate(createdDate);
 			LocalDateTime updatedDate = LocalDateTime.now();
 			categories.setUpdatedDate(updatedDate);
-			categories.setUpdatedBy(userId);
+//			categories.setUpdatedBy(userId);
 		}
 		
 		categoryRepo.save(categories);
 		
 	}
-	
+
+	private void removeProductByCategory(Category category){
+		ProductSearch productSearch = new ProductSearch();
+		productSearch.setCategoryId(category.getId());
+		List<Product> products = productsService.search(productSearch);
+		for (Product p: products) {
+			p.setStatus(false);
+		}
+	}
+
+	public void remove(Category category) throws Exception{
+		if(category.getParent_id()==null)
+		{
+			List<Category> categories = new ArrayList<Category>();
+			CategorySearch categorySearch = new CategorySearch();
+			categorySearch.setParentId(category.getId());
+			categories = search(categorySearch);
+			for (Category i: categories) {
+				i.setStatus(false);
+				removeProductByCategory(i);
+			}
+		}
+		else
+			removeProductByCategory(category);
+		category.setStatus(false);
+	}
+
 	public List<Category> search(final CategorySearch categorySearch) {
 //		String jpql = "Select caijcungduoc from Product caijcungduoc";
 //		Query query = entityManager.createQuery(jpql, Product.class);

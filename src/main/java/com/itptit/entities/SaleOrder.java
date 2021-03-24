@@ -28,7 +28,7 @@ public class SaleOrder extends BaseEntity {
 	@Column(name = "seo")
 	private String seo;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "saleOrder", fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "saleOrder")
 	private List<SaleOrderProducts> saleOrderProducts = new ArrayList<SaleOrderProducts>();
 	
 //	public void addSaleOrderProducts(SaleOrderProducts _saleOrderProducts) {

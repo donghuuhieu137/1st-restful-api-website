@@ -1,6 +1,5 @@
 package com.itptit.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.itptit.entities.Cart;
 import com.itptit.entities.CartProduct;
-import com.itptit.model.AjaxResponse;
+import com.itptit.model.respone.AjaxResponse;
 import com.itptit.respositories.ProductRepo;
 //import com.itptit.services.SaleOrderService;
 import com.itptit.services.SaleOrderService;
