@@ -5,12 +5,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.itptit.entities.ProductInCart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.itptit.entities.CartProduct;
 import com.itptit.entities.SaleOrder;
 import com.itptit.entities.User;
 import com.itptit.respositories.SaleOrderRepo;
@@ -43,7 +43,7 @@ public class SaleOrderService {
 	    return builder.toString();
 	}
 
-	public void save(SaleOrder saleOrder, List<CartProduct> listProducts, Integer total) throws IllegalAccessException, IOException{
+	public void save(SaleOrder saleOrder, List<ProductInCart> listProducts, Integer total) throws IllegalAccessException, IOException{
 		String code = randomIdentifier(7);
 		saleOrder.setCode(code);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

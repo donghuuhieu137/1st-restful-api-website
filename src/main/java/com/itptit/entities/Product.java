@@ -23,6 +23,7 @@ public class Product extends com.itptit.entities.BaseEntity {
 	@Column(name = "short_description", length = 3000, nullable = false)
 	private String shortDes;
 
+	@JsonIgnore
 	@ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
 	@JoinTable(name = "tbl_products_color",
 	  joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "color_id"))
@@ -35,7 +36,7 @@ public class Product extends com.itptit.entities.BaseEntity {
 	@Column(name = "seo", nullable = false)
 	private String seo;
 
-//	@JsonIgnore
+	@JsonIgnore
 	@ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE}, fetch = FetchType.LAZY)
 	@JoinTable(name = "tbl_products_size",
 			  joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "size_id"))

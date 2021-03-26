@@ -56,18 +56,14 @@ public class LoginController extends BaseController{
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<JwtResponse> signIn(@Valid @RequestBody LoginRequest loginRequest){
+    public ResponseEntity<String> signIn(@Valid @RequestBody LoginRequest loginRequest){
         try {
-            // Tạo chuỗi authentication từ username và password
-            // (object LoginRequest - file này chỉ là 1 class bình thường, chứa 2 trường username và password)
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+            // Tạo chuỗi authentication từ username và password (object LoginRequest - file này chỉ là 1 class bình thường, chứa 2 trường username và password)
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
             //Set chuỗi authentication đó cho UserPrincipal
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwt = jwtTokenProvider.generateToken(authentication);
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            User user = userService.findByUserName(userDetails.getUsername());
-            return ResponseEntity.ok(new JwtResponse(jwt, user.getEmail(), user.getUsername(), user.getRoles().toString()));
+            return ResponseEntity.ok(jwt);
         }   catch (AuthenticationException e){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }

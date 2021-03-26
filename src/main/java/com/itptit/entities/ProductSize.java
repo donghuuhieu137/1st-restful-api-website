@@ -14,6 +14,7 @@ public class ProductSize extends BaseEntity {
 	@Column(name = "code", nullable = false)
 	private String code;
 
+
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "size")
 	private Set<Product> product_size = new HashSet<Product>();
 	

@@ -15,11 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itptit.controller.BaseController;
 import com.itptit.entities.Product;
-import com.itptit.model.respone.AjaxResponse;
-import com.itptit.respositories.CategoryRepo;
-import com.itptit.respositories.ColorRepo;
 import com.itptit.respositories.ProductRepo;
-import com.itptit.respositories.SizeRepo;
 import com.itptit.services.ProductsService;
 
 @RestController
@@ -30,15 +26,6 @@ public class AdminProductController extends BaseController{
 	
 	@Autowired
 	private ProductRepo productRepo;
-	
-	@Autowired
-	private CategoryRepo categoryRepo;
-	
-	@Autowired
-	private SizeRepo sizeRepo;
-	
-	@Autowired
-	private ColorRepo colorRepo;
 	
 	@RequestMapping(value = "/admin/product", method = RequestMethod.GET)
 	public ResponseEntity<List<Product>> getAllProduct()throws Exception{
@@ -57,12 +44,10 @@ public class AdminProductController extends BaseController{
 	
 	
 	/////////////////// D E L E T E
-	@RequestMapping(value = { "/admin/product-delete" }, method = RequestMethod.POST, produces = "application/json", consumes="application/json")
-	public ResponseEntity<AjaxResponse> saveWithAjax(@RequestBody Product product) {
-			Product productInDB = productRepo.getOne(product.getId());
-			productInDB.setStatus(false);
-			productRepo.save(productInDB);
-		return ResponseEntity.ok(new AjaxResponse(200, "Thành công"));
+	@RequestMapping(value = { "/admin/product-delete/{id}" }, method = RequestMethod.POST)
+	public ResponseEntity<Product> deleteProduct(@PathVariable("id") Integer id) {
+			productsService.delete(id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 	//////// EDIT

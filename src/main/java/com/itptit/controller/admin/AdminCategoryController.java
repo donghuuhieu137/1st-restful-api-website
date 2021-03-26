@@ -35,10 +35,9 @@ public class AdminCategoryController{
 	/////////////////// D E L E T E
 	@RequestMapping(value = { "/admin/category-delete/{id}"}, method = RequestMethod.POST)
 	public ResponseEntity<Category> deleteCategory(@PathVariable("id") Integer id) throws Exception{
-		Category category = categoryRepo.getOne(id);
-		if (category==null)
+		if (id==null)
 				return new ResponseEntity<>(HttpStatus.CONFLICT);
-		categoryService.remove(category);
+		categoryService.delete(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	

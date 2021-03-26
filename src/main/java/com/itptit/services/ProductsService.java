@@ -125,7 +125,14 @@ public class ProductsService{
 		productRepo.save(product);
 		
 	}
-	
+
+
+	public void delete(Integer id){
+		Product productInDB = productRepo.findById(id).get();
+//		productInDB.setStatus(false);
+		productRepo.delete(productInDB);
+	}
+
 	/**
 	 * Tìm kiếm sản phẩm.
 	 * 

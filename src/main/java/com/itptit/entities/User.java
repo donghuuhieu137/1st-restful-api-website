@@ -1,5 +1,6 @@
 package com.itptit.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,7 +35,11 @@ public class User extends com.itptit.entities.BaseEntity implements UserDetails 
 	@JoinTable(name = "tbl_users_roles",
 			  joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<com.itptit.entities.Role> roles;
-	
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
+	private Cart cart;
+
 	@Transient
 	List<GrantedAuthority> grantedAuthorities;
 	

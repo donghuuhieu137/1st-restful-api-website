@@ -58,21 +58,9 @@ public class CategoryService {
 		}
 	}
 
-	public void remove(Category category) throws Exception{
-		if(category.getParent_id()==null)
-		{
-			List<Category> categories = new ArrayList<Category>();
-			CategorySearch categorySearch = new CategorySearch();
-			categorySearch.setParentId(category.getId());
-			categories = search(categorySearch);
-			for (Category i: categories) {
-				i.setStatus(false);
-				removeProductByCategory(i);
-			}
-		}
-		else
-			removeProductByCategory(category);
-		category.setStatus(false);
+	public void delete(Integer id) throws Exception{
+		Category category = categoryRepo.findById(id).get();
+		categoryRepo.delete(category);
 	}
 
 	public List<Category> search(final CategorySearch categorySearch) {

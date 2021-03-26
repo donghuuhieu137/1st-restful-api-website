@@ -29,7 +29,11 @@ public class UserService {
 		this.roleRepository = roleRepository;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
-	
+
+	public User findUserById(Integer id){
+		return userRepository.findById(id).get();
+	}
+
 	public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }

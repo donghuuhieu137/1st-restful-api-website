@@ -23,6 +23,10 @@ public class Category extends com.itptit.entities.BaseEntity {
 	@Column(name = "parent_id", nullable = true)
 	private Integer parent_id;
 
+	@JsonIgnore
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "category")
+	private Set<Product> products = new HashSet<Product>();
+
 	public String getName() {
 		return name;
 	}

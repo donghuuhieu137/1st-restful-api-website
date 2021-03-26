@@ -14,6 +14,7 @@ public class ProductColor extends com.itptit.entities.BaseEntity {
 	@Column(name = "code", nullable = false)
 	private String code;
 
+
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "color")
 	private Set<Product> product_color = new HashSet<Product>();
 	
